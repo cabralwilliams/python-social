@@ -1,0 +1,11 @@
+{% extends "layout/main.html" %}
+
+{% block body %}
+<div class="post-list">
+    {% for post in posts %}
+    
+        {% include 'partials/post-title.html' %}
+    
+    {% endfor %}
+</div>
+{% endblock %}

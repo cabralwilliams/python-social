@@ -1,0 +1,6 @@
+<article class="post">
+    <div class="title">
+        <a href="/posts/{{post.id}}" class="post-title">{{ post.title }}</a>
+        <span>(Posted {{post.created_at|format_date}} by </span><span class="username">{{ post.user.username }}</span><span>)</span>
+    </div>
+</article>

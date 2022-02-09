@@ -1,6 +1,5 @@
-from turtle import title
 from flask import Blueprint, session, request, jsonify
-from app.models import User, Post, Comment, Vote
+from app.models import User, Post, Comment, Upvote, Downvote
 from app.db import Session, get_db
 import sys
 from sqlalchemy import or_

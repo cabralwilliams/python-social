@@ -2,6 +2,9 @@
 from flask import Flask
 from os import getenv
 from dotenv import load_dotenv
+from app.utils import filters
+from app.routes import api, home
+from app.db import init_db
 
 load_dotenv()
 
@@ -13,3 +16,14 @@ def create_app(test_config = None):
     app.config.from_mapping(
         SECRET_KEY = getenv('SECRET_KEY')
     )
+
+    # register routes
+    app.register_blueprint(api)
+    app.register_blueprint(home)
+
+    init_db(app)
+
+    app.jinja_env.filters['format_date'] = filters.format_date
+    app.jinja_env.filters['format_plural'] = filters.format_plural
+
+    return app
