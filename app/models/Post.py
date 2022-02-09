@@ -33,3 +33,5 @@ class Post(Base):
     user = relationship('User')
     # Remove comments associated with post upon deletion of post
     comments = relationship('Comment', cascade='all,delete')
+    up_vote_count = relationship('Vote', cascade='all,delete')
+    down_vote_count = relationship('Vote', cascade='all,delete')

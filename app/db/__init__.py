@@ -8,6 +8,9 @@ from flask import g
 # Load environment variables
 load_dotenv()
 
+print('Trying to connect')
+print(getenv('DB_URL'))
+
 # Create the database connection using imported environment variable
 engine = create_engine(getenv('DB_URL'), echo=True, pool_size=20, max_overflow=0)
 Session = sessionmaker(bind = engine)

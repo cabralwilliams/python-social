@@ -32,7 +32,7 @@ class User(Base):
         assert len(password) > 4
 
         # encrypt password
-        return bcrypt.hashpw(password, salt)
+        return bcrypt.hashpw(password.encode('utf-8'), salt)
 
     # Verify that the correct password was entered
     def verify_password(self, password):
