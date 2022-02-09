@@ -1,6 +1,7 @@
+from turtle import title
 from flask import Blueprint, session, request, jsonify
 from app.models import User, Post, Comment, Vote
-from app.db import get_db
+from app.db import Session, get_db
 import sys
 from sqlalchemy import or_
 
@@ -65,3 +66,61 @@ def login():
     session.clear()
     session['user_id'] = user.id
     session['loggedIn'] = True
+
+@bp.route('/users/logout', methods = ['POST'])
+def logout():
+    # Clear session variables
+    session.clear()
+    return '', 204
+
+@bp.route('/posts', methods = ['POST'])
+def create_post():
+    data = request.get_json()
+    db = get_db()
+
+    try:
+        newPost = Post(
+            title = data['title'],
+            post_text = data['post_text'],
+            user_id = session.get('user_id')
+        )
+    except:
+        print(sys.exc_info()[0])
+
+        db.rollback()
+        return jsonify(message = 'Post creation failed'), 500
+
+    return jsonify(id = newPost.id)
+
+@bp.route('/posts/<id>', methods = ['PUT'])
+def update_post(id):
+    data = request.get_json()
+    db = get_db()
+
+    try:
+        post = db.query(Post).filter(Post.id == id).one()
+        post.title = data['title']
+        post.post_text = data['post_text']
+        db.commit()
+    except:
+        print(sys.exc_info()[0])
+
+        db.rollback()
+        return jsonify(message = 'Post not found'), 404
+
+    return '', 204
+
+@bp.route('/posts/<id>', methods = ['DELETE'])
+def delete_post(id):
+    db = get_db()
+
+    try:
+        db.delete(db.query(Post).filter(Post.id == id).one())
+        db.commit()
+    except:
+        print(sys.exc_info()[0])
+
+        db.rollback()
+        return jsonify(message = 'Post not found'), 404
+
+    return '', 204
