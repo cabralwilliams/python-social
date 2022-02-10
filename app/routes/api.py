@@ -169,3 +169,22 @@ def downvote():
         return jsonify(message = 'Unable to register vote'), 500
     
     return '', 204
+
+@bp.route('/comments', methods = ['POST'])
+@login_required
+def addComment():
+    db = get_db()
+    data = request.get_json()
+
+    try:
+        comment = Comment(comment_text = data['comment_text'], post_id = data['post_id'], user_id = session.get('user_id'))
+        print(str(comment))
+        db.add(comment)
+        db.commit()
+    except:
+        print(sys.exc_info()[0])
+
+        db.rollback()
+        return jsonify(message = 'Comment creation failed'), 500
+
+    return '', 204

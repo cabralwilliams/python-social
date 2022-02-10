@@ -40,7 +40,7 @@
     {% endif %}
     <div class="displayed-comments">
         {% for comment in post.comments %}
-            
+            {% include "partials/manage-comments.html" %}
         {% endfor %}
     </div>
     </div>

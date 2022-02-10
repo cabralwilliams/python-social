@@ -28,9 +28,11 @@ def getpost(id):
     try:
         post = db.query(Post).where(Post.id == id).one()
         canEdit = False
+        mypost = False
         if session.get('loggedIn') == True:
             if session.get('user_id') == post.user_id:
                 canEdit = True
+                mypost = True
     except:
         print(sys.exc_info()[0])
 
@@ -55,7 +57,7 @@ def editPost(id):
 
         return jsonify(message = 'Post not found'), 404
 
-    return render_template('editPost.html', post = post, loggedIn = session.get('loggedIn'), postAction = 'Edit Post', postTitle = post.title, postId = post.id, userId = session.get('user_id'), postValue = post.title, postPlaceholder = post.post_text, postContent = post.post_text, isEditing = True)
+    return render_template('editPost.html', post = post, loggedIn = session.get('loggedIn'), postAction = 'Edit Post', postTitle = post.title, postId = post.id, userId = session.get('user_id'), postValue = post.title, postPlaceholder = post.post_text, postContent = post.post_text, isEditing = True, canEdit = True)
 
 @bp.route('/create')
 @login_required

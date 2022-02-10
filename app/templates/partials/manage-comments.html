@@ -1,0 +1,9 @@
+<div class="comment-div">
+    <div>
+        <span class="username">{{ comment.user.username }}</span><span> said on </span><span>{{ comment.created_at|format_date }}</span>
+    </div>
+    <blockquote class="comment-text">{{ comment.comment_text }}</blockquote>
+    {% if canEdit == True %}
+    <button data-commentId="{{ id }}" onclick="deleteComment(event)" class="site-btn-1">Delete Comment</button>
+    {% endif %}
+</div>
