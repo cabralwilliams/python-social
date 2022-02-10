@@ -9,7 +9,7 @@ async function addPost(event) {
             method: "POST",
             body: JSON.stringify({
                 title: postTitle,
-                content: postText,
+                post_text: postText,
                 user_id: parseInt(document.querySelector("#userId").value)
             }),
             headers: { "Content-Type": "application/json" }

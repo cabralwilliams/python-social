@@ -91,6 +91,8 @@ def create_post():
             post_text = data['post_text'],
             user_id = session.get('user_id')
         )
+        db.add(newPost)
+        db.commit()
     except:
         print(sys.exc_info()[0])
 
@@ -186,5 +188,20 @@ def addComment():
 
         db.rollback()
         return jsonify(message = 'Comment creation failed'), 500
+
+    return '', 204
+
+@bp.route('/comments/<id>', methods = ['DELETE'])
+@login_required
+def deleteComment(id):
+    db = get_db()
+
+    try:
+        db.delete(db.query(Comment).where(Comment.id == id).one())
+        db.commit()
+    except:
+        print(sys.exc_info()[0])
+        db.rollback()
+        return jsonify(message = 'Comment not found'), 404
 
     return '', 204

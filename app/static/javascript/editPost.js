@@ -10,7 +10,7 @@ async function editPost(event) {
             method: "PUT",
             body: JSON.stringify({
                 title: postTitle,
-                content: postText
+                post_text: postText
             }),
             headers: { "Content-Type": "application/json" }
         });
