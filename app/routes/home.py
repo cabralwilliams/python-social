@@ -56,3 +56,8 @@ def editPost(id):
         return jsonify(message = 'Post not found'), 404
 
     return render_template('editPost.html', post = post, loggedIn = session.get('loggedIn'), postAction = 'Edit Post', postTitle = post.title, postId = post.id, userId = session.get('user_id'), postValue = post.title, postPlaceholder = post.post_text, postContent = post.post_text, isEditing = True)
+
+@bp.route('/create')
+@login_required
+def createPost():
+    return render_template('create.html', loggedIn = session.get('loggedIn'), postAction = 'Create Post', postTitle = '', userId = session.get('user_id'), postValue = '', postPlaceholder = 'What are you thinking?', postContent = '', isEditing = False)

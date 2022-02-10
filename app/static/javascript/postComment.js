@@ -1,3 +1,51 @@
+const btnUp = document.querySelector('#upvote');
+const btnDown = document.querySelector('#downvote');
+
+async function upvote(event) {
+    event.preventDefault();
+    const userId = parseInt(document.querySelector("#user_id").value);
+    const postId = parseInt(document.querySelector("#post_id").value);
+
+    const response = await fetch('/api/posts/upvote', {
+        method: "PUT",
+        body: JSON.stringify({
+            post_id: postId,
+            user_id: userId
+        }),
+        headers: { "Content-Type": "application/json" }
+    });
+
+    if(response.ok) {
+        window.location.replace(`/posts/${postId}`);
+    } else {
+        alert(response.statusText);
+    }
+}
+
+async function downvote(event) {
+    event.preventDefault();
+    const userId = parseInt(document.querySelector("#user_id").value);
+    const postId = parseInt(document.querySelector("#post_id").value);
+
+    const response = await fetch('/api/posts/downvote', {
+        method: "PUT",
+        body: JSON.stringify({
+            post_id: postId,
+            user_id: userId
+        }),
+        headers: { "Content-Type": "application/json" }
+    });
+
+    if(response.ok) {
+        window.location.replace(`/posts/${postId}`);
+    } else {
+        alert(response.statusText);
+    }
+}
+
+btnUp.addEventListener('click', upvote);
+btnDown.addEventListener('click', downvote);
+
 async function postComment(event) {
     event.preventDefault();
 

@@ -3,7 +3,7 @@
 {% block body %}
 <div class="column-flex">
     <h2>Welcome, {{user['firstname']}} {{user['lastname']}}!</h2>
-    <div class="top-bottom-10"><a href="/dashboard/create" class="color5">Create New Post</a></div>
+    <div class="top-bottom-10"><a href="/create" class="color5">Create New Post</a></div>
     {% if posts|length > 0 %}
         <h3 class="color5 shadowed-text">What Was Previously On Your Mind</h3>
         <ol class="post-list">
