@@ -3,7 +3,7 @@ from flask import Flask
 from os import getenv
 from dotenv import load_dotenv
 from app.utils import filters
-from app.routes import api, home
+from app.routes import api, home, dashboard
 from app.db import init_db
 
 load_dotenv()
@@ -20,6 +20,7 @@ def create_app(test_config = None):
     # register routes
     app.register_blueprint(api)
     app.register_blueprint(home)
+    app.register_blueprint(dashboard)
 
     init_db(app)
 

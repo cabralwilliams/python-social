@@ -1,0 +1,13 @@
+{% extends "layout/main.html" %}
+
+{% block body %}
+<form class="delete-form column-flex" id="delete-form">
+    <button type="submit" class="site-btn-1">Delete Post</button>
+</form>
+{% include 'partials/create-edit.html' %}
+<div class="displayed-comments column-flex center-element">
+    {% for comment in post.comments %}
+        {% include 'partials/manage-comments.html' %}
+    {% endfor %}
+</div>
+{% endblock %}

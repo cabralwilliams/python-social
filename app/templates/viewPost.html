@@ -8,6 +8,20 @@
         <div>
             <span>Posted by <span class="username">{{ post.user.username }}</span><span> on {{ post.created_at|format_date }}</span>
         </div>
+        <div class="row-flex">
+            {% if loggedIn == True %}
+                <button class="nargin-right-10 site-btn-1" id="upvote">&uarr; {{ post.up_vote_count }}</button>
+                <button class="margin-left-10 site-btn-1" id="downvote">&darr; {{ post.down_vote_count }}</button>
+            {% else %}
+                <div class="margin-right-10">&uarr; {{ post.up_vote_count }}</div>
+                <div class="margin-left-10">&darr; {{ post.down_vote_count }}</div>
+            {% endif %}
+        </div>
+        {% if canEdit == True %}
+            <div>
+                <button class="site-btn-1" id="editPost">Edit Post</button>
+            </div>
+        {% endif %}
     </div>
     {% if loggedIn == True %}
     <div class="column-flex">
@@ -32,5 +46,15 @@
     </div>
     {% if loggedIn == True %}
     <script src="/javascript/postComment.js"></script>
+    {% endif %}
+    {% if canEdit == True %}
+    <script>
+        function goToEdit() {
+            const postId = window.location.toString().split('/')[window.location.toString().split('/').length - 1];
+            window.location.assign(`/edit/${postId}`);
+        }
+
+        document.querySelector('#editPost').addEventListener('click', goToEdit);
+    </script>
     {% endif %}
     {% endblock %}

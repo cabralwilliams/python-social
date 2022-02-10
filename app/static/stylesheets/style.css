@@ -108,6 +108,19 @@ h3.shadowed-text {
     align-items: center;
 }
 
+.row-flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.margin-left-10 {
+    margin-left: 10px;
+}
+
+.margin-right-10 {
+    margin-right: 10px;
+}
+
 .center-element {
     margin: 15px auto;
 }
